@@ -21,8 +21,9 @@ console output, report files).
 5. [How to run each script](#5-how-to-run-each-script)
 6. [Output directory structure](#6-output-directory-structure)
 7. [Metrics reference](#7-metrics-reference)
-8. [Reproducibility notes](#8-reproducibility-notes)
-9. [Troubleshooting](#9-troubleshooting)
+8. [Using this repository with Git](#8-using-this-repository-with-git)
+9. [Reproducibility notes](#9-reproducibility-notes)
+10. [Troubleshooting](#10-troubleshooting)
 
 ---
 
@@ -311,6 +312,12 @@ qiskit-aer  (optional -- only for --backend qiskit.aer)
 ### Install
 
 ```bash
+pip install -r requirements.txt
+```
+
+Or install the pieces individually:
+
+```bash
 pip install numpy matplotlib
 pip install pennylane          # optional, recommended
 pip install scipy              # optional, recommended for experiment4
@@ -320,6 +327,22 @@ pip install scipy              # optional, recommended for experiment4
 > Without PennyLane it prints a warning and falls back to the built-in NumPy
 > exact statevector simulator, which produces mathematically equivalent
 > probabilities.
+
+### Clone and verify
+
+```bash
+git clone <your-repo-url>
+cd SCHPSD_QAOA
+pip install -r requirements.txt
+
+# Quick end-to-end sanity check (runs in a few seconds)
+python qaoa_generator.py --rows 3 --cols 3 --layers 2 --hea-layers 1 \
+    --generations 2 --population 6 --seed 46
+```
+
+The run should print a `FINAL` block listing `QAOA`, `HEA`, `Random search`
+and `SA` rows, and a `RESULT_DIR=` line pointing at the generated output
+folder.
 
 ### Put the scripts on the path (optional)
 
@@ -636,7 +659,64 @@ to enumerate exhaustively (up to `4x4 = 16` qubits = 65 536 states).
 
 ---
 
-## 8. Reproducibility notes
+## 8. Using this repository with Git
+
+The repository is a plain git repo with no submodules and no vendored
+dependencies.
+
+### Clone
+
+```bash
+git clone <your-repo-url>
+cd SCHPSD_QAOA
+pip install -r requirements.txt
+```
+
+### Branch layout
+
+`main` holds the released state. For experimental work, branch off rather than
+committing directly:
+
+```bash
+git switch -c feature/<topic>
+# ... work ...
+git add -A
+git commit -m "Describe the change"
+git push -u origin feature/<topic>
+```
+
+Then open a Pull Request on GitHub.
+
+### What is deliberately not tracked
+
+`.gitignore` excludes every experiment output directory (`outputs/`,
+`outputs_exp5/`, `scale_outputs/`) along with `__pycache__/`, virtualenvs and
+editor settings. This keeps the repository small, since experiment results are
+regenerable from the scripts given the seeds recorded in each run's
+`config.json`.
+
+If you want to publish a specific set of results alongside the code, add a
+narrow exception rather than removing the ignore rule wholesale:
+
+```gitignore
+# ...in .gitignore...
+!outputs/published_figures/
+```
+
+### Reproducing a published result
+
+Every run directory stores the exact configuration it used in `config.json`
+(including `problem_seed`, optimizer seed, population, generations and
+backend). To reproduce a run, pass those values back on the command line:
+
+```bash
+python depth_experiment.py --problem-seed 12345 --p-start 1 --p-end 9 \
+    --seed-start 46 --seed-end 55 --generations 200 --population 40
+```
+
+---
+
+## 9. Reproducibility notes
 
 - **Problem seed vs optimizer seed.** `--problem-seed` fixes the *Hamiltonian*
   (target structure plus background ensemble). `--seed` / `--seed-start` /
@@ -657,7 +737,7 @@ to enumerate exhaustively (up to `4x4 = 16` qubits = 65 536 states).
 
 ---
 
-## 9. Troubleshooting
+## 10. Troubleshooting
 
 **`PennyLane unavailable ... falling back to NumPy statevector simulation`**
 This is a warning, not an error. Install PennyLane (`pip install pennylane`)
