@@ -45,3 +45,6 @@ desktop.ini
 
 # Local workbuddy project data
 .workbuddy/
+
+# Tooling diagnostics
+gcm-diagnose.log
