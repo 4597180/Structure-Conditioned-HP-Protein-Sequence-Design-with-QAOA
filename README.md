@@ -10,6 +10,8 @@ hardware-efficient ansatz (HEA), random search, and simulated annealing (SA).
 Everything in this repository is written in English (code comments, docstrings,
 console output, report files).
 
+**Repository:** https://github.com/4597180/Structure-Conditioned-HP-Protein-Sequence-Design-with-QAOA
+
 ---
 
 ## Table of Contents
@@ -331,8 +333,8 @@ pip install scipy              # optional, recommended for experiment4
 ### Clone and verify
 
 ```bash
-git clone <your-repo-url>
-cd SCHPSD_QAOA
+git clone https://github.com/4597180/Structure-Conditioned-HP-Protein-Sequence-Design-with-QAOA.git
+cd Structure-Conditioned-HP-Protein-Sequence-Design-with-QAOA
 pip install -r requirements.txt
 
 # Quick end-to-end sanity check (runs in a few seconds)
@@ -350,7 +352,7 @@ All scripts insert their own directory into `sys.path`, so they can be launched
 from anywhere:
 
 ```bash
-cd /path/to/SCHPSD_QAOA
+cd Structure-Conditioned-HP-Protein-Sequence-Design-with-QAOA
 python qaoa_generator.py --help
 ```
 
@@ -361,7 +363,7 @@ python qaoa_generator.py --help
 All commands are run from the project root:
 
 ```bash
-cd /path/to/SCHPSD_QAOA
+cd Structure-Conditioned-HP-Protein-Sequence-Design-with-QAOA
 ```
 
 ---
@@ -667,8 +669,8 @@ dependencies.
 ### Clone
 
 ```bash
-git clone <your-repo-url>
-cd SCHPSD_QAOA
+git clone https://github.com/4597180/Structure-Conditioned-HP-Protein-Sequence-Design-with-QAOA.git
+cd Structure-Conditioned-HP-Protein-Sequence-Design-with-QAOA
 pip install -r requirements.txt
 ```
 
