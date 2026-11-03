@@ -1,0 +1,15 @@
+# Core dependencies (required)
+numpy>=1.21
+matplotlib>=3.4
+
+# Quantum simulation backend (optional)
+# Without PennyLane the code falls back to an equivalent pure-NumPy
+# exact statevector simulator.
+pennylane>=0.30
+
+# Statistical tests for experiment4_target_robustness.py (optional)
+scipy>=1.7
+
+# Only needed for --backend qiskit.aer
+# qiskit>=0.44
+# qiskit-aer>=0.12
